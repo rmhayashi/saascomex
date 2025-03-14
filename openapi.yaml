@@ -1,0 +1,11 @@
+info:
+  title: Saascomex
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  http://localhost:8080/saascomexdesenv_gx15/rest/wsr_sc_arm_listasolicretirada:
+    post:
+      responses:
+        '200':
+          description: Success
+      summary: http://localhost:8080/saascomexdesenv_gx15/rest/wsr_sc_arm_listasolicretirada
