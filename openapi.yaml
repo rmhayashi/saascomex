@@ -2,11 +2,16 @@ openapi: 3.0.3
 info:
   title: API de Processos
   version: 1.0.0
+  contact:
+    name: Suporte Técnico
+    email: suporte@saascomex.com.br
 
 paths:
   /vw_info_proc:
     get:
-      summary: View com informações sobre os processos, além de outras informações
+      tags:
+        - Processos
+      summary: View com informações sobre os processos, disponibilizado para integração.
       parameters:
         - name: CNPJEmpresa
           in: path
