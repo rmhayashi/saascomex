@@ -1,11 +1,322 @@
+openapi: 3.0.3
 info:
-  title: Saascomex
+  title: API de Processos
   version: 1.0.0
-openapi: 3.0.0
+
 paths:
-  http://localhost:8080/saascomexdesenv_gx15/rest/wsr_sc_arm_listasolicretirada:
-    post:
+  /vw_info_proc:
+    get:
+      summary: View com informações sobre os processos, além de outras informações
+      parameters:
+        - name: CNPJEmpresa
+          in: path
+          required: true
+          schema:
+            type: integer
       responses:
         '200':
-          description: Success
-      summary: http://localhost:8080/saascomexdesenv_gx15/rest/wsr_sc_arm_listasolicretirada
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoProcesso'
+        '500':
+          description: Falha na geração dos dados
+
+
+components:
+  schemas:
+    InfoProcesso:
+      type: object
+      properties:
+        CNPJEmpresa:
+          type: integer
+          description: CNPJ principal
+        CNPJ_CLIENTE:
+          type: string
+          description: CNPJ do Cliente
+        NUMERO_PROCESSO:
+          type: integer
+          description: Número do Processo
+        NREFERENCIA:
+          type: string
+          description: Nossa Referência
+        CLIENTE:
+          type: string
+          description: Nome do Cliente
+        OPERACAO:
+          type: string
+          description: Tipo da operação (Importação ou Exportação)
+        MODAL:
+          type: string
+          description: Aéreo, Maritimo ou Terrestre
+        ORIGEM:
+          type: string
+          description: Origem da Carga
+        CNPJ_ADQUIRENTE:
+          type: integer
+          description: CNPJ do adquirente
+        DESTINO:
+          type: string
+          description: Destino da Carga
+        CNPJ_CONSIGNATARIO:
+          type: integer
+          description: CNPJ Consignatário
+        DEB_IMPOSTOS:
+          type: string
+          description: Débito dos impostos (PRÓPRIO ou CLIENTE)
+        DEB_ICMS:  
+          type: string
+          description: Débito do ICMS (PRÓPRIO ou CLIENTE)
+        PAG_CAMBIO_ANTECIPADO:
+          type: number
+          format: double
+          description: Valor do Câmbio
+        TIPO_OPER:
+          type: string
+          description: Tipo da Operação
+        LOCAL_DESEMB:
+          type: string
+          description: Local do Desembarque
+        DEBITO_AFRMM:
+          type: string
+          description: Débito do AFRMM
+        REPRESE_LEGAL:
+          type: string
+          description: Nome do Representante Legal
+        RESPONSAVEL:
+          type: string
+          description: Nome do Responsável
+        REF_IMPORTADOR:
+          type: string
+          description: Código de Referência do Importador
+        TIPO_DI:
+          type: string
+          description: Tipo da D.I.
+        MODALIDADE_DESPACHO:
+          type: string
+          description: Modalidade do Despacho
+        OP_FUNDAP:
+          type: string
+          description: Sim ou Não
+        CANAL:
+          type: string
+          description: Canal
+        DATA_CANAL:
+          type: string
+          format: date
+          description: Data do Canal
+        TOTAL_FOB_USD:
+          type: number
+          format: double
+          description: Total FOB em Dólar
+        TOTAL_FOB_REAL:
+          type: number
+          format: double
+          description: Total FOB em Reais
+        FRETE_INT_USD:
+          type: number
+          format: double
+          description: Valor do Frete Internacional em Dólar
+        TOTAL_THC_REAL:
+          type: number
+          format: double
+          description: Total THC em Reais
+        SEGURO_INT_USD:
+          type: number
+          format: double
+          description: Valor do Seguro Internacional em Dólar
+        TOTAL_CIF_USD:
+          type: number
+          format: double
+          description: Total CIF em Dólar
+        STATUS_PROCESSO:
+          type: string
+          description: Status atual do Processo
+        TOTAL_VMLE_USD:
+          type: number
+          format: double
+          description: Total VLME em Dólar
+        SEGURO:
+          type: string
+          description: Possui Seguro (S ou N)
+        ASSESSORIA:
+          type: string
+          description: Possui assessoria (S ou N)
+        DESPACHO_ADUANEIRO:
+          type: string
+          description: Possui despacho aduaneiro (S ou N)
+        FRETE_INTERNAC:
+          type: string
+          description: Possui Frete Internacional (S ou N)
+        INVOICE:
+          type: string
+          description: Invoice 
+        REGIMES_ESPECIAIS:
+          type: string
+          description: Possui regime especial (S ou N)
+        TRANSPORTE_ROD:
+          type: string
+          description: Possui transporte rodoviário (S ou N)
+        MASTER_AWB:
+          type: string
+          description: Master
+        ALCADA_PROCESSO:
+          type: number
+          format: double
+          description: Valor da Alçado do Processo
+        NAVIO:
+          type: string
+          description: Nome do Navio
+        HOUSE_AWB:
+          type: string
+          description: Código House
+        PESO_BRUTO:
+          type: number
+          format: double
+          description: Peso Bruto
+        NAVIO_TRANSBORDO:
+          type: string
+          description: Navio de Transbordo
+        BL:
+          type: string
+          description: BL
+        PESO_TAXADO:
+          type: number
+          format: double
+          description: Peso Taxado
+        NUM_PACKING_LIST:
+          type: string
+          description: Código do Packing List
+        DEBIT_NOTE:
+          type: string
+          description: DEBIT_NOTE
+        CUBAGEM:
+          type: number
+          format: double
+          description: CUBAGEM
+        COLETA:
+          type: string
+          format: date
+          description: Data de Coleta
+        ETD:
+          type: string
+          format: date
+          description: Data ETD
+        DATA_EMBARQUE:
+          type: string
+          format: date
+          description: Data Embarque
+        ENTREGA:
+          type: string
+          format: date
+          description: Data de Entrega
+        ETA:
+          type: string
+          format: date
+          description: Data ETA
+        CARREGAMENTO:
+          type: string
+          format: date
+          description: Data de Carregamento
+        REC_DOC_ORIGINAIS:
+          type: string
+          format: date
+          description: Data de Recolhimento dos Documentos Originais
+        DI:
+          type: string
+          description: Código da D.I.
+        ENVIO_ANALISE_DI:
+          type: string
+          format: date
+          description: Data de Envio da D.I.
+        INCOTERM:
+          type: string
+          description: INCOTERM
+        DATA_DI:
+          type: string
+          format: date
+          description: Data da D.I.
+        COMPANHIA:
+          type: string
+          description: COMPANHIA
+        OBS_REL_FECH:
+          type: string
+          description: Observação para Relatório de Fechamento
+        PROTOCOLO_DI:
+          type: string
+          description: Código do Protocolo de D.I.
+        URF_ENTRADA:
+          type: string
+          description: URF de ENTRADA
+        DUIMP:
+          type: string
+          description: Código da DUIMP
+        URF_DESPACHO:
+          type: string
+          description: URF de DESPACHO
+        DATA_DUIMP:
+          type: string
+          format: date
+          description: Data da DUIMP
+        ENVIA_FOLLOWUP:
+          type: string
+          description: Enviar Follow-up (S ou N)
+        TERMINAL_DEV:
+          type: string
+          description: TERMINAL DEV
+        CONCLUSAO_DIG_FAT:
+          type: string
+          format: date
+          description: Data de Conclusão Dig Fat
+        CRT:
+          type: string
+          description: CRT
+        PRODUTO:
+          type: string
+          description: PRODUTOS
+        CONFERENCIA_PROC:
+          type: string
+          format: date
+          description: Data de Conferência do Processo
+        PAGAMENTO_FORNECEDOR:
+          type: string
+          format: date
+          description: Data de Pagamento do Fornecedor
+        VOLUMES:
+          type: string
+          description: VOLUMES
+        PRESENCA_CARGA:
+          type: string
+          description: PRESENCA de CARGA
+        AGENTE_CARGA:
+          type: string
+          description: Agente de Carga
+        VIAGEM:
+          type: string
+          description: VIAGEM
+        CHEGADA_OPERACAO:
+          type: string
+          format: date
+          description: Data de Chegada
+        DEMURRAGE_FTD_DIAS:
+          type: integer
+          description: DEMURRAGE_FTD_DIAS
+        DDL_DEMURRAGE:
+          type: string
+          format: date
+          description: Data DDL_DEMURRAGE
+        DESEMBARACO:
+          type: string
+          description: DESEMBARACO
+        DATA_RETIRADA_CTNR_VAZIO:
+          type: string
+          format: date
+          description: DATA RETIRADA CTNR VAZIO
+        DETENTION_FTD_DIAS:
+          type: integer
+          description: DETENTION FTD DIAS
+        DDL_DETENTION:
+          type: string
+          format: date
+          description: Data DDL Detention
