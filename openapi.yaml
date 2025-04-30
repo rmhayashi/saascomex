@@ -7,26 +7,46 @@ info:
     email: suporte@saascomex.com.br
 
 paths:
-  /vw_info_proc:
+  /wsr_sc_vw_info_processos_bi:
     get:
       tags:
         - Processos
       summary: View com informações sobre os processos, disponibilizado para integração.
       parameters:
-        - name: CNPJEmpresa
+        - name: auth_usuario
           in: path
           required: true
           schema:
-            type: integer
+            type: string
+        - name: auth_senha
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: auth_chave
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
         '200':
-          description: Sucesso
+          description: Sucesso - O resultado é retornado com todas as informações do arquivo
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/InfoProcesso'
         '500':
           description: Falha na geração dos dados
+        '995':
+          description: ERRO (AUTENTICACAO): ACESSO NAO PERMITIDO. VERIFIQUE OS DADOS DO USUARIO
+        '996':
+          description: ERRO (AUTENTICACAO): CHAVE DA EMPRESA INVALIDA
+        '997':
+          description: ERRO (AUTENTICACAO): OBRIGATORIO INFORMAR A CHAVE DA EMPRESA
+        '998':
+          description: ERRO (AUTENTICACAO): OBRIGATORIO INFORMAR A SENHA
+        '999':
+          description: ERRO (AUTENTICACAO): OBRIGATORIO INFORMAR O USUARIO
 
 
 components:
