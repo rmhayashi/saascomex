@@ -38,15 +38,15 @@ paths:
         '500':
           description: Falha na geração dos dados
         '995':
-          description: ERRO (AUTENTICACAO): ACESSO NAO PERMITIDO. VERIFIQUE OS DADOS DO USUARIO
+          description: ERRO (AUTENTICACAO) - ACESSO NAO PERMITIDO. VERIFIQUE OS DADOS DO USUARIO
         '996':
-          description: ERRO (AUTENTICACAO): CHAVE DA EMPRESA INVALIDA
+          description: ERRO (AUTENTICACAO) - CHAVE DA EMPRESA INVALIDA
         '997':
-          description: ERRO (AUTENTICACAO): OBRIGATORIO INFORMAR A CHAVE DA EMPRESA
+          description: ERRO (AUTENTICACAO) - OBRIGATORIO INFORMAR A CHAVE DA EMPRESA
         '998':
-          description: ERRO (AUTENTICACAO): OBRIGATORIO INFORMAR A SENHA
+          description: ERRO (AUTENTICACAO) - OBRIGATORIO INFORMAR A SENHA
         '999':
-          description: ERRO (AUTENTICACAO): OBRIGATORIO INFORMAR O USUARIO
+          description: ERRO (AUTENTICACAO) - OBRIGATORIO INFORMAR O USUARIO
 
 
 components:
