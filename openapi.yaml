@@ -39,13 +39,21 @@ paths:
               schema:
                 type: object
                 properties:
-                  arquivo:
+                  resultado:
                     type: string
                     contentEncoding: base64
                     contentMediaType: application/json
                     description: Arquivo json codificado em base64
         '500':
           description: Falha na geração dos dados
+        '800':
+          description: Erro (Processamento) - Arquivo Do Bi => <Caminho_Nome_Arquivo>Nao Encontrado
+        '801':
+          description: Erro (Processamento) - Conteudo Do Arquivo => <Caminho_Nome_Arquivo> Vazio. Nao Foi Possivel Ler Os Dados Do Bi
+        '903':
+          description: Erro (Parametro) - Caminho Do Contexto Nao Parametrizado. Ver Chave04=Contexto
+        '904':
+          description: Erro (Parametro) - Nome Do Arquivo Nao Parametrizado. Ver Chave04=Chamadas_Grid, Id=Arquivo_Info_Proc_Bi
         '995':
           description: Erro (Autenticacao) - Acesso Nao Permitido. Verifique Os Dados Do Usuario
         '996':
