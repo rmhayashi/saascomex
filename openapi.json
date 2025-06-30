@@ -1,0 +1,633 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API de Processos",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Suporte Técnico",
+      "email": "suporte@saascomex.com.br"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://cloudxxx.saascomex.com.br/saascomex_99999999999999/rest",
+      "description": "substituir o xxx pela versão do cloud e o 99999999999999 pelo path"
+    }
+  ],
+  "paths": {
+    "/wsr_sc_vw_info_processos_bi": {
+      "post": {
+        "tags": [
+          "Processos"
+        ],
+        "summary": "View com informações sobre os processos, disponibilizado para integração.",
+        "parameters": [
+          {
+            "name": "auth_usuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "auth_senha",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "auth_chave",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso - O resultado é retornado com todas as informações do arquivo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "arquivo": {
+                      "type": "string",
+                      "contentEncoding": "base64",
+                      "contentMediaType": "application/json",
+                      "description": "Arquivo json codificado em base64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Falha na geração dos dados"
+          },
+          "995": {
+            "description": "Erro (Autenticacao) - Acesso Nao Permitido. Verifique Os Dados Do Usuario"
+          },
+          "996": {
+            "description": "Erro (Autenticacao) - Chave Da Empresa Invalida"
+          },
+          "997": {
+            "description": "Erro (Autenticacao) - Obrigatorio Informar A Chave Da Empresa"
+          },
+          "998": {
+            "description": "Erro (Autenticacao) - Obrigatorio Informar A Senha"
+          },
+          "999": {
+            "description": "Erro (Autenticacao) - Obrigatorio Informar O Usuario"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "wsr_sc_vw_info_processos_bi": {
+        "type": "object",
+        "properties": {
+          "CNPJEmpresa": {
+            "type": "integer",
+            "format": "int64",
+            "example": "00000000000000",
+            "description": "CNPJ principal",
+			"maxLength": 20
+          },
+          "CNPJ_CLIENTE": {
+            "type": "string",
+            "example": "00.000.000/0000-00",
+            "description": "CNPJ do Cliente",
+            "maxLength": 14,
+          },
+          "NUMERO_PROCESSO": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Número do Processo",
+			"maxLength": 20
+          },
+		  "DATA_ABERTURA":{
+			"type": "date",
+            "example": "2025-12-31",
+			"description": "Data de Abertura do Processo"
+		  },
+          "NREFERENCIA": {
+            "type": "string",
+            "description": "Nossa Referência",
+			"maxLength": 20
+          },
+          "CLIENTE": {
+            "type": "string",
+			"maxLength": 60,
+            "description": "Nome do Cliente"
+          },
+          "OPERACAO": {
+            "type": "string",
+			"maxLength": 20,
+            "description": "Tipo da operação",
+            "enum": [
+              "IMPORTACAO",
+              "EXPORTACAO"
+            ]
+          },
+          "MODAL": {
+            "type": "string",
+			"maxLength": 20,
+            "description": "Modalidade",
+			"enum": [
+              "AEREO",
+              "FLUVIAL",
+			  "MARITIMO",
+			  "RODOVIARIO"
+            ]
+          },
+		  "PAIS_ORIGEM": {
+            "type": "string",
+			"maxLength": 50,
+            "description": "País de Origem da Carga"
+		  },
+          "UF_ORIGEM": {
+            "type": "string",
+            "description": "UF de Origem da Carga",
+			"maxLength": 50
+          },
+		  "CIDADE_ORIGEM": {
+            "type": "string",
+            "description": "Cidade de Origem da Carga",
+			"maxLength": 50
+          },
+          "CNPJ_ADQUIRENTE": {
+            "type": "integer",
+            "description": "CNPJ do adquirente",
+			"format": "int64",
+			"maxLength": 20
+          },
+          "PAIS_DESTINO": {
+            "type": "string",
+            "description": "País de Destino da Carga",
+			"maxLength": 50
+          },
+		  "UF_DESTINO": {
+            "type": "string",
+            "description": "UF de Destino da Carga",
+			"maxLength": 50
+          },
+		  "CIDADE_DESTINO": {
+            "type": "string",
+            "description": "Cidade de Destino da Carga",
+			"maxLength": 50
+          },
+          "CNPJ_CONSIGNATARIO": {
+            "type": "integer",
+            "description": "CNPJ Consignatário",
+			"format": "int64",
+			"maxLength": 20
+          },
+          "DEB_IMPOSTOS": {
+            "type": "string",
+            "description": "Débito dos impostos",
+			"maxLength": 20,
+			"enum":["PRÓPRIO", "CLIENTE"]
+          },
+          "DEB_ICMS": {
+            "type": "string",
+            "description": "Débito do ICMS",
+			"maxLength": 20,
+			"enum":["PRÓPRIO", "CLIENTE"]
+          },
+          "PAG_CAMBIO_ANTECIPADO": {
+            "type": "number",
+            "format": "double",
+            "description": "Valor do Câmbio",
+			"example": "17,2"
+          },
+          "LOCAL_DESEMB": {
+            "type": "string",
+            "description": "Local do Desembarque",
+			"maxLength": 256
+          },
+          "DEBITO_AFRMM": {
+            "type": "string",
+            "description": "Débito do AFRMM",
+			"maxLength": 20
+          },
+          "REPRESENTANTE_LEGAL": {
+            "type": "string",
+            "description": "Nome do Representante Legal",
+			"maxLength": 60
+          },
+          "RESPONSAVEL": {
+            "type": "string",
+            "description": "Nome do Responsável",
+			"maxLength": 60
+          },
+          "REF_IMPORTADOR": {
+            "type": "string",
+            "description": "Código de Referência do Importador",
+			"maxLength": 40
+          },
+          "TIPO_DI": {
+            "type": "string",
+            "description": "Tipo da D.I.",
+			"maxLength": 20
+          },
+          "MODALIDADE_DESPACHO": {
+            "type": "string",
+            "description": "Modalidade do Despacho",
+			"maxLength": 20
+          },
+          "OP_FUNDAP": {
+            "type": "string",
+            "description": "Operação FUNDAP",
+			"maxLength": 1,
+			"enum":["S", "N"]
+          },
+          "CANAL": {
+            "type": "string",
+            "description": "Canal",
+			"maxLength": 50
+          },
+          "DATA_CANAL": {
+            "type": "date",
+            "format": "date",
+            "description": "Data do Canal",
+			"maxLength": 60,
+			"example": "2025-12-31"
+          },
+          "TOTAL_FOB_USD": {
+            "type": "number",
+            "format": "double",
+            "description": "Total FOB em Dólar",
+			"example": "17,2"
+          },
+          "TOTAL_FOB_REAL": {
+            "type": "number",
+            "format": "double",
+            "description": "Total FOB em Reais",
+			"example": "17,2"
+          },
+          "FRETE_INT_USD": {
+            "type": "number",
+            "format": "double",
+            "description": "Valor do Frete Internacional em Dólar",
+			"example": "17,2"
+          },
+          "TOTAL_THC_REAL": {
+            "type": "number",
+            "format": "double",
+            "description": "Total THC em Reais",
+			"example": "17,2"
+          },
+          "SEGURO_INT_USD": {
+            "type": "number",
+            "format": "double",
+            "description": "Valor do Seguro Internacional em Dólar",
+			"example": "17,2"
+          },
+          "TOTAL_CIF_USD": {
+            "type": "number",
+            "format": "double",
+            "description": "Total CIF em Dólar",
+			"example": "17,2"
+          },
+          "STATUS_PROCESSO": {
+            "type": "string",
+            "description": "Status atual do Processo",
+			"maxLength": 20
+          },
+          "TOTAL_VMLE_USD": {
+            "type": "number",
+            "format": "double",
+            "description": "Total VLME em Dólar",
+			"example": "17,2"
+          },
+          "SEGURO": {
+            "type": "string",
+            "description": "Possui Seguro",
+			"maxLength": 1,
+			"enum": ["S", "N"]
+          },
+          "ASSESSORIA": {
+            "type": "string",
+            "description": "Possui assessoria",
+			"maxLength": 1,
+			"enum": ["S", "N"]
+          },
+          "DESPACHO_ADUANEIRO": {
+            "type": "string",
+            "description": "Possui despacho aduaneiro",
+			"maxLength": 1,
+			"enum": ["S", "N"]
+          },
+          "FRETE_INTERNAC": {
+            "type": "string",
+            "description": "Possui Frete Internacional",
+			"maxLength": 1,
+			"enum": ["S", "N"]
+          },
+          "INVOICE": {
+            "type": "string",
+            "description": "Invoice",
+			"maxLength": 128
+          },
+          "REGIMES_ESPECIAIS": {
+            "type": "string",
+            "description": "Possui regime especial",
+			"maxLength": 1,
+			"enum": ["S", "N"]
+          },
+          "TRANSPORTE_ROD": {
+            "type": "string",
+            "description": "Possui transporte rodoviário",
+			"maxLength": 1,
+			"enum": ["S", "N"]
+          },
+          "MASTER_AWB": {
+            "type": "string",
+            "description": "Master",
+			"maxLength": 40
+          },
+          "ALCADA_PROCESSO": {
+            "type": "number",
+            "format": "double",
+            "description": "Valor da Alçado do Processo",
+			"example": "17,2"
+          },
+          "NAVIO": {
+            "type": "string",
+            "description": "Nome do Navio",
+			"maxLength": 60
+          },
+          "HOUSE_AWB": {
+            "type": "string",
+            "description": "Código House",
+			"maxLength": 40
+          },
+          "PESO_BRUTO": {
+            "type": "number",
+            "format": "double",
+            "description": "Peso Bruto",
+			"example": "17,2"
+          },
+          "NAVIO_TRANSBORDO": {
+            "type": "string",
+            "description": "Navio de Transbordo",
+			"maxLength": 60
+          },
+          "BL": {
+            "type": "string",
+            "description": "BL",
+			"maxLength": 100
+          },
+          "PESO_TAXADO": {
+            "type": "number",
+            "format": "double",
+            "description": "Peso Taxado",
+			"example": "17,2"
+          },
+          "NUM_PACKING_LIST": {
+            "type": "string",
+            "description": "Código do Packing List",
+			"maxLength": 50
+          },
+          "DEBIT_NOTE": {
+            "type": "string",
+            "description": "DEBIT_NOTE",
+			"maxLength": 100
+          },
+          "CUBAGEM": {
+            "type": "number",
+            "format": "double",
+            "description": "CUBAGEM",
+			"example": "17,2"
+          },
+          "COLETA": {
+            "type": "date",
+            "format": "date",
+            "description": "Data de Coleta",
+			"example": "2025-12-31"
+          },
+          "ETD": {
+            "type": "date",
+            "format": "date",
+            "description": "Data ETD",
+			"example": "2025-12-31"
+          },
+          "DATA_EMBARQUE": {
+            "type": "date",
+            "format": "date",
+            "description": "Data Embarque",
+			"example": "2025-12-31"
+          },
+          "ENTREGA": {
+            "type": "date",
+            "format": "date",
+            "description": "Data de Entrega",
+			"example": "2025-12-31"
+          },
+          "ETA": {
+            "type": "date",
+            "format": "date",
+            "description": "Data ETA",
+			"example": "2025-12-31"
+          },
+          "CARREGAMENTO": {
+            "type": "date",
+            "format": "date",
+            "description": "Data de Carregamento",
+			"example": "2025-12-31"
+          },
+          "REC_DOC_ORIGINAIS": {
+            "type": "date",
+            "format": "date",
+            "description": "Data de Recolhimento dos Documentos Originais",
+			"example": "2025-12-31"
+          },
+          "DI": {
+            "type": "string",
+            "description": "Código da D.I.",
+			"maxLength": 30
+          },
+          "ENVIO_ANALISE_DI": {
+            "type": "date",
+            "format": "date",
+            "description": "Data de Envio da D.I.",
+			"example": "2025-12-31"
+          },
+          "INCOTERM": {
+            "type": "string",
+            "description": "INCOTERM",
+			"maxLength": 20
+          },
+          "DATA_DI": {
+            "type": "date",
+            "format": "date",
+            "description": "Data da D.I.",
+			"example": "2025-12-31"
+          },
+          "COMPANHIA": {
+            "type": "string",
+            "description": "COMPANHIA",
+			"maxLength": 128
+          },
+          "OBS_REL_FECH": {
+            "type": "string",
+            "description": "Observação para Relatório de Fechamento",
+			"maxLength": 512
+          },
+          "PROTOCOLO_DI": {
+            "type": "string",
+            "description": "Código do Protocolo de D.I.",
+			"maxLength": 50
+          },
+          "URF_ENTRADA": {
+            "type": "text",
+            "description": "URF de ENTRADA"
+          },
+          "DUIMP": {
+            "type": "string",
+            "description": "Código da DUIMP",
+			"maxLength": 30
+          },
+          "URF_DESPACHO": {
+            "type": "text",
+            "description": "URF de DESPACHO"
+          },
+          "DATA_DUIMP": {
+            "type": "date",
+            "format": "date",
+            "description": "Data da DUIMP",
+			"example": "2025-12-31"
+          },
+          "ENVIA_FOLLOWUP": {
+            "type": "string",
+            "description": "Enviar Follow-up",
+			"maxLength": 1,
+			"enum": ["S", "N"]
+          },
+          "TERMINAL_DEV": {
+            "type": "string",
+            "description": "TERMINAL DEV",
+			"maxLength": 100
+          },
+          "CONCLUSAO_DIG_FAT": {
+            "type": "date",
+            "format": "date",
+            "description": "Data de Conclusão Dig Fat",
+			"example": "2025-12-31"
+          },
+          "CRT": {
+            "type": "string",
+            "description": "CRT",
+			"maxLength": 128
+          },
+          "PRODUTO": {
+            "type": "string",
+            "description": "PRODUTOS",
+			"maxLength": 128
+          },
+          "CONFERENCIA_PROC": {
+            "type": "date",
+            "format": "date",
+            "description": "Data de Conferência do Processo",
+			"example": "2025-12-31"
+          },
+          "PAGAMENTO_FORNECEDOR": {
+            "type": "date",
+            "format": "date",
+            "description": "Data de Pagamento do Fornecedor",
+			"example": "2025-12-31"
+          },
+          "VOLUMES": {
+            "type": "text",
+            "description": "VOLUMES"
+          },
+          "PRESENCA_CARGA": {
+            "type": "string",
+            "description": "PRESENCA de CARGA",
+			"maxLength": 50
+          },
+          "AGENTE_CARGA": {
+            "type": "string",
+            "description": "Agente de Carga",
+			"maxLength": 60
+          },
+          "VIAGEM": {
+            "type": "string",
+            "description": "VIAGEM",
+			"maxLength": 50
+          },
+          "CHEGADA_OPERACAO": {
+            "type": "date",
+            "format": "date",
+            "description": "Data de Chegada",
+			"example": "2025-12-31"
+          },
+          "DEMURRAGE_FTD_DIAS": {
+            "type": "integer",
+            "description": "DEMURRAGE_FTD_DIAS",
+			"maxLength": 20
+          },
+          "DDL_DEMURRAGE": {
+            "type": "date",
+            "format": "date",
+            "description": "Data DDL_DEMURRAGE",
+			"example": "2025-12-31"
+          },
+          "DESEMBARACO": {
+            "type": "string",
+            "description": "DESEMBARACO",
+			"maxLength": 1
+          },
+          "DATA_RETIRADA_CTNR_VAZIO": {
+            "type": "date",
+            "format": "date",
+            "description": "DATA RETIRADA CTNR VAZIO",
+			"example": "2025-12-31"
+          },
+          "DETENTION_FTD_DIAS": {
+            "type": "integer",
+            "description": "DETENTION FTD DIAS",
+			"maxLength": 20
+          },
+          "DDL_DETENTION": {
+            "type": "date",
+            "format": "date",
+            "description": "Data DDL Detention",
+			"example": "2025-12-31"
+          },
+		  "SITUACAO": {
+            "type": "string",
+            "description": "Situação do Processo",
+			"maxLength": 100
+          },
+		  "DATA_DESEMBARACO": {
+            "type": "date",
+			"format": "date",
+            "description": "Data do Desembaraço",
+			"example": "2025-12-31"
+          },
+		  "NUMERO_DUE": {
+            "type": "string",
+            "description": "Número da DUE",
+			"maxLength": 50
+          },
+		  "DATA_DUE": {
+            "type": "date",
+            "description": "Data da DUE",
+			"example": "2025-12-31"
+          }
+        }
+      }
+    }
+  }
+}
