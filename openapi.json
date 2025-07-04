@@ -89,6 +89,81 @@
           }
         }
       }
+    },
+	"/wsr_sc_vw_info_financeiro_bi": {
+      "post": {
+        "tags": [
+          "Financeiro"
+        ],
+        "summary": "View com informações financeiras, contas a pagar e receber",
+        "parameters": [
+          {
+            "name": "auth_usuario",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "auth_senha",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          },
+          {
+            "name": "auth_chave",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "maxLength": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso - O resultado é retornado com todas as informações do arquivo",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "arquivo": {
+                      "type": "string",
+                      "contentEncoding": "base64",
+                      "contentMediaType": "application/json",
+                      "description": "Arquivo json codificado em base64"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Falha na geração dos dados"
+          },
+          "995": {
+            "description": "Erro (Autenticacao) - Acesso Nao Permitido. Verifique Os Dados Do Usuario"
+          },
+          "996": {
+            "description": "Erro (Autenticacao) - Chave Da Empresa Invalida"
+          },
+          "997": {
+            "description": "Erro (Autenticacao) - Obrigatorio Informar A Chave Da Empresa"
+          },
+          "998": {
+            "description": "Erro (Autenticacao) - Obrigatorio Informar A Senha"
+          },
+          "999": {
+            "description": "Erro (Autenticacao) - Obrigatorio Informar O Usuario"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -605,6 +680,144 @@
             "description": "Data DDL Detention",
 			"example": "2025-12-31"
           },
+		  "FOLLOWS":{
+			"type": "object",
+            "description": "Follows do Processo",
+			"properties": {
+			  "OCORRENCIA": {
+				"type": "date",
+				"format": "datetime",
+				"description": "Data do Follow",
+				"example": "2025-12-31 23:59:00"
+			  },
+			  "SERVICO": {
+				"type": "string",
+				"description": "Serviço Efetuado",
+				"maxLength": 50
+			  },
+			  "IDENTIFICACAO": {
+				"type": "string",
+				"description": "Identificação",
+				"maxLength": 23
+			  },
+			  "EXTERNO": {
+				"type": "string",
+				"description": "Follow Externo ",
+				"maxLength": 1,
+				"enum": ["S","N"]
+			  },
+			  "EMAIL_AUT": {
+				"type": "string",
+				"description": "E-mail autorizado",
+				"maxLength": 1,
+				"enum": ["S","N"]
+			  },
+			  "ENVIADO_AUT": {
+				"type": "string",
+				"description": "Enviado autorizado",
+				"maxLength": 1,
+				"enum": ["S","N"]
+			  },
+			  "FOLLOW_UP_TIPO": {
+				"type": "string",
+				"description": "Tipo do Follow",
+				"maxLength": 50
+			  },
+			  "USU_GRAV": {
+				"type": "string",
+				"description": "Nome do usuário que cadastrou o Follow",
+				"maxLength": 50
+			  },
+			  "DT_HR_GRAV": {
+				"type": "date",
+				"format": "date",
+				"description": "Data e hora de gravação do Follow",
+				"example": "2025-12-31 23:59:00"
+			  },
+			  "USU_ALT": {
+				"type": "string",
+				"description": "Nome do usuário que atualizou o Follow",
+				"maxLength": 50
+			  },
+			  "DT_HR_ALT": {
+				"type": "date",
+				"format": "date",
+				"description": "Data e hora de atualização do Follow",
+				"example": "2025-12-31 23:59:00"
+			  },
+			  "CLIENTE": {
+				"type": "string",
+				"description": "Cliente",
+				"maxLength": 1,
+				"enum": ["S","N"]
+			  },
+			  "ADQUIR": {
+				"type": "string",
+				"description": "Adquirente",
+				"maxLength": 1,
+				"enum": ["S","N"]
+			  },
+			  "CONSIG": {
+				"type": "string",
+				"description": "Consignatário",
+				"maxLength": 1,
+				"enum": ["S","N"]
+			  }
+			}
+		  },
+		  "ETAPAS":{
+			"type": "object",
+            "description": "Etapas do Processo",
+			"properties": {
+			  "ETAPA_ANTERIOR": {
+				"type": "string",
+				"description": "Etapa Anterior",
+				"maxLength": 50,
+			  },
+			  "SITUACAO_ANTERIOR": {
+				"type": "string",
+				"description": "Situação Anterior",
+				"maxLength": 50,
+			  },
+			  "ETAPA_ATUAL": {
+				"type": "string",
+				"description": "Etapa Atual",
+				"maxLength": 50,
+			  },
+			  "SITUACAO_ATUAL": {
+				"type": "string",
+				"description": "Situação Atual",
+				"maxLength": 50,
+			  },
+			  "DT_HR_ETAPA": {
+				"type": "date",
+				"format": "date",
+				"description": "Data e hora da etapa atual",
+				"example": "2025-12-31 23:59:00"
+			  },
+			  "DT_HR_SITUACAO_ATUAL": {
+				"type": "date",
+				"format": "date",
+				"description": "Data e hora da situação atual",
+				"example": "2025-12-31 23:59:00"
+			  },
+			  "USUARIO": {
+				"type": "string",
+				"description": "Nome do usuário",
+				"maxLength": 50
+			  },
+			  "INCLUSAO": {
+				"type": "string",
+				"description": "Tipo da inclusão",
+				"maxLength": 20
+			  },
+			  "OBSERVACAO": {
+				"type": "string",
+				"description": "Observação da Etapa",
+				"maxLength": 256
+			  },
+			}
+		  },
 		  "SITUACAO": {
             "type": "string",
             "description": "Situação do Processo",
@@ -627,7 +840,313 @@
 			"example": "2025-12-31"
           }
         }
-      }
+      },
+	  "wsr_sc_vw_info_financeiro_bi": {
+        "type": "object",
+        "properties": {
+          "CNPJEmpresa": {
+            "type": "integer",
+            "format": "int64",
+            "example": "00000000000000",
+            "description": "CNPJ principal",
+			"maxLength": 20
+          },
+		  "NUMERO_PROCESSO": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Número do Processo",
+			"maxLength": 20
+          },
+		  "DATA_ABERTURA":{
+			"type": "date",
+            "example": "2025-12-31",
+			"description": "Data de Abertura do Processo"
+		  },
+          "NREFERENCIA": {
+            "type": "string",
+            "description": "Nossa Referência",
+			"maxLength": 20
+          },
+          "REFERENCIA_IMPORTADOR": {
+            "type": "string",
+            "description": "Referência Importador",
+			"maxLength": 40
+          },
+		  "DATA_DI": {
+            "type": "date",
+            "description": "Data DI",
+            "example": "2025-12-31"
+          },
+		  "SALDO": {
+            "type": "number",
+            "format": "double",
+            "description": "Saldo do Processo",
+			"example": "17,2"
+          },
+		  "SITUACAO": {
+            "type": "string",
+            "description": "Situação do Processo",
+			"maxLength": 100
+          },
+		  "ULTIMO_FOLLOW": {
+            "type": "string",
+            "description": "Último Follow",
+			"maxLength": 256
+          },
+		  "DATA_ULTIMO_FOLLOW": {
+            "type": "date",
+            "description": "Data do Último Follow",
+            "example": "2025-12-31"
+          },
+		  "RECEBIMENTOS": {
+            "type": "object",
+			"properties": {
+			  "DEBITA_DE": {
+				"type": "string",
+				"description": "Debita de",
+				"maxLength": 60
+			  },
+			  "CONTA_DEBITA_DE": {
+				"type": "string",
+				"description": "Conta Debita de",
+				"maxLength": 100
+			  },
+			  "CREDITA_PARA": {
+				"type": "string",
+				"description": "Credita para",
+				"maxLength": 60
+			  },
+			  "CONTA_CREDITA_PARA": {
+				"type": "string",
+				"description": "Conta Credita para",
+				"maxLength": 100
+			  },
+			  "REFERENCIA": {
+				"type": "string",
+				"description": "Referência",
+				"maxLength": 20
+			  },
+			  "ITEM": {
+				"type": "string",
+				"description": "Item",
+				"maxLength": 60
+			  },
+			  "NUMERO_DOCUMENTO": {
+				"type": "string",
+				"description": "Número do Documento",
+				"maxLength": 40
+			  },
+			  "INCLUSAO": {
+				"type": "string",
+				"description": "Tipo de inclusão",
+				"maxLength": 20
+			  },
+			  "NOTA_DESP": {
+				"type": "string",
+				"description": "Possui Nota de Despesa",
+				"maxLength": 1,
+				"enum": ["S","N"]
+			  },
+			  "PART_SALDO": {
+				"type": "string",
+				"description": "Participa do Saldo",
+				"maxLength": 1,
+				"enum": ["S","N"]
+			  },
+			  "DATA_LANCAMENTO": {
+				"type": "date",
+				"format": "date",
+				"description": "Data do Lançamento",
+				"example": "2025-12-31"
+			  },
+			  "DATA_VENCIMENTO": {
+				"type": "date",
+				"format": "date",
+				"description": "Data do Vencimento",
+				"example": "2025-12-31"
+			  },
+			  "VALOR": {
+				"type": "number",
+				"format": "double",
+				"description": "Valor do documento",
+				"example": "17,2"
+			  },
+			  "RECEBIDO": {
+				"type": "number",
+				"format": "double",
+				"description": "Valor recebido",
+				"example": "17,2"
+			  },
+			  "SALDO": {
+				"type": "number",
+				"format": "double",
+				"description": "Saldo",
+				"example": "17,2"
+			  },
+			  "SITUACAO": {
+				"type": "string",
+				"description": "Situação do documento",
+				"maxLength": 20
+			  },
+			  "FATURA": {
+				"type": "integer",
+				"format": "$int64",
+				"description": "Fatura",
+				"maxLength": 20
+			  }
+			}
+		  },
+		  "PAGAMENTOS": {
+            "type": "object",
+			"properties": {
+			  "DEBITA_DE": {
+				"type": "string",
+				"description": "Debita de",
+				"maxLength": 60
+			  },
+			  "CONTA_DEBITA_DE": {
+				"type": "string",
+				"description": "Conta Debita de",
+				"maxLength": 100
+			  },
+			  "CREDITA_PARA": {
+				"type": "string",
+				"description": "Credita para",
+				"maxLength": 60
+			  },
+			  "CONTA_CREDITA_PARA": {
+				"type": "string",
+				"description": "Conta Credita para",
+				"maxLength": 100
+			  },
+			  "REFERENCIA": {
+				"type": "string",
+				"description": "Referência",
+				"maxLength": 20
+			  },
+			  "ITEM": {
+				"type": "string",
+				"description": "Item",
+				"maxLength": 60
+			  },
+			  "NUMERO_DOCUMENTO": {
+				"type": "string",
+				"description": "Número do Documento",
+				"maxLength": 40
+			  },
+			  "INCLUSAO": {
+				"type": "string",
+				"description": "Tipo de inclusão",
+				"maxLength": 20
+			  },
+			  "NOTA_DESP": {
+				"type": "string",
+				"description": "Possui Nota de Despesa",
+				"maxLength": 1,
+				"enum": ["S","N"]
+			  },
+			  "PART_SALDO": {
+				"type": "string",
+				"description": "Participa do Saldo",
+				"maxLength": 1,
+				"enum": ["S","N"]
+			  },
+			  "DATA_LANCAMENTO": {
+				"type": "date",
+				"format": "date",
+				"description": "Data do Lançamento",
+				"example": "2025-12-31"
+			  },
+			  "DATA_VENCIMENTO": {
+				"type": "date",
+				"format": "date",
+				"description": "Data do Vencimento",
+				"example": "2025-12-31"
+			  },
+			  "VALOR": {
+				"type": "number",
+				"format": "double",
+				"description": "Valor do documento",
+				"example": "17,2"
+			  },
+			  "PAGO": {
+				"type": "number",
+				"format": "double",
+				"description": "Valor pago",
+				"example": "17,2"
+			  },
+			  "SALDO": {
+				"type": "number",
+				"format": "double",
+				"description": "Saldo",
+				"example": "17,2"
+			  },
+			  "SITUACAO": {
+				"type": "string",
+				"description": "Situação do documento",
+				"maxLength": 20
+			  },
+			}
+		  },
+		  "NUMERARIO": {
+            "type": "object",
+			"properties": {
+			  "ITEM": {
+				"type": "text",
+				"description": "Item"
+			  },
+			  "DEBITO_CREDITO": {
+				"type": "string",
+				"description": "Débito ou Crédito",
+				"maxLength": 7,
+				"enum": ["DEBITO", "CRÉDITO"]
+			  },
+			  "VALOR_NUMERARIO": {
+				"type": "number",
+				"format": "double",
+				"description": "Valor do Numerário",
+				"example": "17,2"
+			  },
+			  "VALOR_A_PAGAR": {
+				"type": "number",
+				"format": "double",
+				"description": "Valor a pagar",
+				"example": "17,2"
+			  },
+			  "PAGO": {
+				"type": "number",
+				"format": "double",
+				"description": "Valor pago",
+				"example": "17,2"
+			  },
+			  "SALDO": {
+				"type": "number",
+				"format": "double",
+				"description": "Saldo",
+				"example": "17,2"
+			  },
+			  "DATA_SOLICITACAO": {
+				"type": "date",
+				"format": "datetime",
+				"description": "Data da solicitação do numerário",
+				"example": "2025-12-31 23:59:00"
+			  },
+			  "DATA_PAGAMENTO": {
+				"type": "date",
+				"format": "datetime",
+				"description": "Data de Pagamento",
+				"example": "2025-12-31 23:59:00"
+			  },
+			  "PAGO_CLIENTE": {
+				"type": "string",
+				"description": "Pago pelo cliente",
+				"maxLength": 1,
+				"enum": ["S", "N"]
+			  },
+			}
+		  },
+		}
+	  }
     }
   }
 }
